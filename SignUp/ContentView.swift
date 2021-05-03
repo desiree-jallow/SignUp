@@ -24,20 +24,20 @@ struct AvatarView: View {
     var body: some View {
         HStack {
             VStack {
-                Image("child")
-                    .resizable()
-                Text("CHILD")
-                    .font(.caption2)
-                    .fontWeight(.bold)
-                    .foregroundColor(.orange)
-            }
-            VStack {
                 Image("parent")
                     .resizable()
                 Text("PARENT")
                     .font(.caption2)
                     .fontWeight(.bold)
                     .foregroundColor(.green)
+            }
+            VStack {
+                Image("child")
+                    .resizable()
+                Text("CHILD")
+                    .font(.caption2)
+                    .fontWeight(.bold)
+                    .foregroundColor(.orange)
             }
            
             VStack {
