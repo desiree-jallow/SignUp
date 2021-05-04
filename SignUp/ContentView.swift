@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var username: String = ""
+    @State var email: String = ""
+    @State var password: String = ""
+    @State var comfirmPassword : String = ""
     var body: some View {
         
         ZStack {
@@ -21,20 +25,101 @@ struct ContentView: View {
                
                 Text("WHO ARE YOU?")
                     .foregroundColor(.blue)
+                    .bold()
+                
+                
                 HStack {
                     AvatarView(imageName: "parent", name: "parent", color: .green)
                     AvatarView(imageName: "child", name: "child", color: .orange)
                     AvatarView(imageName: "teacher", name: "teacher", color: .red)
                 }
-                .frame(width: 300, height: 110)
                 
+                
+                VStack(spacing: -10) {
+                    CustomTextField(imageName: "user", placeholder: "Username",bindingText: $username)
+                    
+                    CustomTextField(imageName: "envelope", placeholder: "Email",bindingText: $username)
+                    
+                    CustomTextField(imageName: "lock", placeholder: "Password",bindingText: $username)
+                    
+                    CustomTextField(imageName: "lock", placeholder: "Confirm Password",bindingText: $username)
+                    
+                    
+                }
+                
+                Spacer(minLength: 50)
+                Button(action: {
+                    print("Hello")
+                }, label: {
+                    Text("Sign Up")
+                        .bold()
+                        .font(.title)
+                        .padding(.horizontal, 125)
+                        .padding()
+                        .background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.orange]), startPoint: /*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/, endPoint: /*@START_MENU_TOKEN@*/.trailing/*@END_MENU_TOKEN@*/))
+                        .foregroundColor(.white)
+                        
+                        .cornerRadius(30)
+                       
+                    
+                })
+                HStack {
+                    Text("Already have an account.")
+                        .bold()
+                        .foregroundColor(.white)
+                    
+                    Text("Log in here")
+                        .bold()
+                        .foregroundColor(.orange)
+                }
             }
             
+        }
+    }
+}
+
+struct CustomTextField: View {
+    var imageName: String
+    var placeholder: String
+    @State var text: String = ""
+    @Binding var bindingText: String
+    
+    var body: some View {
+        
+        ZStack(alignment:.leading) {
+               
+                
+            TextField("", text: $text)
+                    .padding()
+                    .textFieldStyle(CustomTextFieldStyle())
+               
+            
+            HStack {
+                Image(imageName)
+                    .resizable()
+                    .frame(width: 20, height: 20, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    .padding(.leading, 30.0)
+
+                if text.isEmpty { Text(placeholder)
+                    .foregroundColor(Color(#colorLiteral(red: 0.2492679467, green: 0.5971605092, blue: 1, alpha: 0.5)))
+                    
+                }
+            }
            
         }
-       
     }
-   
+}
+struct CustomTextFieldStyle: TextFieldStyle {
+    func _body(configuration: TextField<Self._Label>) -> some View {
+            configuration
+                .padding(20)
+                .background(Color(#colorLiteral(red: 0.08059277385, green: 0.1894979179, blue: 0.3140477538, alpha: 1)))
+                .cornerRadius(30)
+                .shadow(color: .gray, radius: 5)
+                .overlay(RoundedRectangle(cornerRadius: 30).stroke(Color(#colorLiteral(red: 0.2135200689, green: 0.5115208546, blue: 0.8565885498, alpha: 1)), lineWidth: 1))
+        }
+    
+    
 }
 
 struct AvatarView: View {
@@ -43,15 +128,19 @@ struct AvatarView: View {
     var color: Color
     
     var body: some View {
-        
+        GeometryReader { geometry in
             VStack {
                 Image(imageName)
                     .resizable()
                 Text(name.uppercased())
-                    .font(.caption2)
+                    .font(.caption)
                     .fontWeight(.bold)
                     .foregroundColor(color)
+                }
+            .frame(width: geometry.size.width, height: geometry.size.height / 1.5, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+            
             }
+        
         }
     }
 
@@ -61,3 +150,4 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
