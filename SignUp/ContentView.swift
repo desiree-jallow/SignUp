@@ -47,15 +47,14 @@ struct ContentView: View {
                     
                 }
                 
-                Spacer(minLength: 50)
                 Button(action: {
                     print("Hello")
                 }, label: {
                     Text("Sign Up")
                         .bold()
                         .font(.title)
-                        .padding(.horizontal, 125)
-                        .padding()
+                        .padding(.horizontal, 100)
+                        .padding(5)
                         .background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.orange]), startPoint: /*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/, endPoint: /*@START_MENU_TOKEN@*/.trailing/*@END_MENU_TOKEN@*/))
                         .foregroundColor(.white)
                         
@@ -112,7 +111,7 @@ struct CustomTextField: View {
 struct CustomTextFieldStyle: TextFieldStyle {
     func _body(configuration: TextField<Self._Label>) -> some View {
             configuration
-                .padding(20)
+                .padding(15)
                 .background(Color(#colorLiteral(red: 0.08059277385, green: 0.1894979179, blue: 0.3140477538, alpha: 1)))
                 .cornerRadius(30)
                 .shadow(color: .gray, radius: 5)
@@ -128,18 +127,17 @@ struct AvatarView: View {
     var color: Color
     
     var body: some View {
-        GeometryReader { geometry in
+        
             VStack {
                 Image(imageName)
                     .resizable()
+                    .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 Text(name.uppercased())
                     .font(.caption)
                     .fontWeight(.bold)
                     .foregroundColor(color)
                 }
-            .frame(width: geometry.size.width, height: geometry.size.height / 1.5, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
             
-            }
         
         }
     }
