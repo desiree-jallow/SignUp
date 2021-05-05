@@ -12,6 +12,9 @@ struct ContentView: View {
     @State var email: String = ""
     @State var password: String = ""
     @State var comfirmPassword : String = ""
+    @State var parentButton = AvatarView(imageName: "parent", name: "parent", color: .green)
+    @State var childButton =  AvatarView(imageName: "child", name: "child", color: .orange)
+    @State var teacherButton = AvatarView(imageName: "teacher", name: "teacher", color: .red)
     var body: some View {
         
         ZStack {
@@ -29,10 +32,38 @@ struct ContentView: View {
                 
                 
                 HStack {
-                    AvatarView(imageName: "parent", name: "parent", color: .green)
-                    AvatarView(imageName: "child", name: "child", color: .orange)
-                    AvatarView(imageName: "teacher", name: "teacher", color: .red)
+                    parentButton
+                        .opacity(parentButton.isSelected ? 1 : 0.1)
+                        .onTapGesture {
+                            parentButton.isSelected = true
+                            childButton.isSelected = false
+                            teacherButton.isSelected = false
+                            
+                        }
+                    childButton
+                        .opacity(childButton.isSelected ? 1 : 0.1)
+                        .onTapGesture {
+                            childButton.isSelected = true
+                            parentButton.isSelected = false
+                            teacherButton.isSelected = false
+                        }
+                    teacherButton
+                        .opacity(teacherButton.isSelected ? 1 : 0.1)
+                        .onTapGesture {
+                            teacherButton.isSelected = true
+                            parentButton.isSelected = false
+                            childButton.isSelected = false
+//                    AvatarView(imageName: "parent", name: "parent", color: .green)
+//                        .opacity(isSelected ? 0.8 : 0.1)
+//                        .onTapGesture {
+//                            isSelected = true
+//
+//                        }
+                    
+//                    AvatarView(imageName: "child", name: "child", color: .orange)
+//                    AvatarView(imageName: "teacher", name: "teacher", color: .red)
                 }
+            }
                 
                 
                 VStack(spacing: -10) {
@@ -125,20 +156,20 @@ struct AvatarView: View {
     var imageName: String
     var name: String
     var color: Color
+    var isSelected: Bool = true
     
     var body: some View {
-        
             VStack {
                 Image(imageName)
                     .resizable()
                     .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                  
                 Text(name.uppercased())
                     .font(.caption)
                     .fontWeight(.bold)
                     .foregroundColor(color)
-                }
-            
-        
+            }
+         
         }
     }
 
