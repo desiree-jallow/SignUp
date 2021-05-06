@@ -12,14 +12,16 @@ struct ContentView: View {
     @State var email: String = ""
     @State var password: String = ""
     @State var comfirmPassword : String = ""
-    @State var parentButton = AvatarView(imageName: "parent", name: "parent", color: .green)
+    @State var parentButton = AvatarView(imageName: "parent", name: "parent", color: .yellow)
     @State var childButton =  AvatarView(imageName: "child", name: "child", color: .orange)
-    @State var teacherButton = AvatarView(imageName: "teacher", name: "teacher", color: .red)
+    @State var teacherButton = AvatarView(imageName: "teacher", name: "teacher", color: .blue)
+    @State var backgroundColor = Color(#colorLiteral(red: 0.101645493, green: 0.2374779485, blue: 0.3960759271, alpha: 1))
     var body: some View {
         
         ZStack {
-            Color(#colorLiteral(red: 0.101645493, green: 0.2374779485, blue: 0.3960759271, alpha: 1))
+            backgroundColor
                 .ignoresSafeArea()
+            
             VStack {
                 Text("Sign Up")
                     .foregroundColor(.white)
@@ -27,7 +29,6 @@ struct ContentView: View {
                     .padding()
                
                 Text("WHO ARE YOU?")
-                    .foregroundColor(.blue)
                     .bold()
                 
                 
@@ -36,6 +37,7 @@ struct ContentView: View {
                         .opacity(parentButton.isSelected ? 1 : 0.1)
                         .onTapGesture {
                             parentButton.isSelected = true
+                            backgroundColor = parentButton.color.opacity(0.8)
                             childButton.isSelected = false
                             teacherButton.isSelected = false
                             
@@ -44,6 +46,7 @@ struct ContentView: View {
                         .opacity(childButton.isSelected ? 1 : 0.1)
                         .onTapGesture {
                             childButton.isSelected = true
+                            backgroundColor = childButton.color.opacity(0.8)
                             parentButton.isSelected = false
                             teacherButton.isSelected = false
                         }
@@ -51,6 +54,7 @@ struct ContentView: View {
                         .opacity(teacherButton.isSelected ? 1 : 0.1)
                         .onTapGesture {
                             teacherButton.isSelected = true
+                            backgroundColor = teacherButton.color.opacity(0.8)
                             parentButton.isSelected = false
                             childButton.isSelected = false
 //                    AvatarView(imageName: "parent", name: "parent", color: .green)
@@ -100,7 +104,7 @@ struct ContentView: View {
                     
                     Text("Log in here")
                         .bold()
-                        .foregroundColor(.orange)
+                        
                 }
             }
             
@@ -167,7 +171,6 @@ struct AvatarView: View {
                 Text(name.uppercased())
                     .font(.caption)
                     .fontWeight(.bold)
-                    .foregroundColor(color)
             }
          
         }
