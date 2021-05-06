@@ -8,14 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var username: String = ""
-    @State var email: String = ""
-    @State var password: String = ""
-    @State var comfirmPassword : String = ""
     @State var parentButton = AvatarView(imageName: "parent", name: "parent", color: .yellow)
     @State var childButton =  AvatarView(imageName: "child", name: "child", color: .orange)
     @State var teacherButton = AvatarView(imageName: "teacher", name: "teacher", color: .blue)
-    @State var backgroundColor = Color(#colorLiteral(red: 0.101645493, green: 0.2374779485, blue: 0.3960759271, alpha: 1))
+    @State var backgroundColor = Color(#colorLiteral(red: 0.101645493, green: 0.2374779485, blue: 0.3960759271, alpha: 0.8567087602))
+    @State var signupDisabled = true
     var body: some View {
         
         ZStack {
@@ -37,7 +34,7 @@ struct ContentView: View {
                         .opacity(parentButton.isSelected ? 1 : 0.1)
                         .onTapGesture {
                             parentButton.isSelected = true
-                            backgroundColor = parentButton.color.opacity(0.8)
+                            backgroundColor = parentButton.color.opacity(0.5)
                             childButton.isSelected = false
                             teacherButton.isSelected = false
                             
@@ -46,7 +43,7 @@ struct ContentView: View {
                         .opacity(childButton.isSelected ? 1 : 0.1)
                         .onTapGesture {
                             childButton.isSelected = true
-                            backgroundColor = childButton.color.opacity(0.8)
+                            backgroundColor = childButton.color.opacity(0.5)
                             parentButton.isSelected = false
                             teacherButton.isSelected = false
                         }
@@ -54,7 +51,7 @@ struct ContentView: View {
                         .opacity(teacherButton.isSelected ? 1 : 0.1)
                         .onTapGesture {
                             teacherButton.isSelected = true
-                            backgroundColor = teacherButton.color.opacity(0.8)
+                            backgroundColor = teacherButton.color.opacity(0.5)
                             parentButton.isSelected = false
                             childButton.isSelected = false
 //                    AvatarView(imageName: "parent", name: "parent", color: .green)
@@ -70,17 +67,7 @@ struct ContentView: View {
             }
                 
                 
-                VStack(spacing: -10) {
-                    CustomTextField(imageName: "user", placeholder: "Username",bindingText: $username)
-                    
-                    CustomTextField(imageName: "envelope", placeholder: "Email",bindingText: $username)
-                    
-                    CustomTextField(imageName: "lock", placeholder: "Password",bindingText: $username)
-                    
-                    CustomTextField(imageName: "lock", placeholder: "Confirm Password",bindingText: $username)
-                    
-                    
-                }
+                TextFieldView(signupDisabled: $signupDisabled)
                 
                 Button(action: {
                     print("Hello")
@@ -96,7 +83,7 @@ struct ContentView: View {
                         .cornerRadius(30)
                        
                     
-                })
+                }).disabled(signupDisabled)
                 HStack {
                     Text("Already have an account.")
                         .bold()
@@ -112,42 +99,135 @@ struct ContentView: View {
     }
 }
 
-struct CustomTextField: View {
-    var imageName: String
-    var placeholder: String
-    @State var text: String = ""
-    @Binding var bindingText: String
+struct TextFieldView: View {
+    @State var username: String = ""
+    @State var email: String = ""
+    @State var password: String = ""
+    @State var confirmPassword: String = ""
+    @Binding var signupDisabled: Bool
+   
+   
     
     var body: some View {
-        
-        ZStack(alignment:.leading) {
-               
-                
-            TextField("", text: $text)
+        VStack(spacing: -10) {
+            ZStack(alignment:.leading) {
+                   
+                TextField("", text: $username)
                     .padding()
                     .textFieldStyle(CustomTextFieldStyle())
-               
-            
-            HStack {
-                Image(imageName)
-                    .resizable()
-                    .frame(width: 20, height: 20, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                    .padding(.leading, 30.0)
+             
+                   
 
-                if text.isEmpty { Text(placeholder)
-                    .foregroundColor(Color(#colorLiteral(red: 0.2492679467, green: 0.5971605092, blue: 1, alpha: 0.5)))
-                    
-                }
+                    if username.isEmpty {
+                        HStack {
+                        Image("user")
+                            .resizable()
+                            .frame(width: 20, height: 20, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                            .padding(.leading, 30.0)
+                        
+                        Text("Username")
+                        .foregroundColor(Color(#colorLiteral(red: 0.2492679467, green: 0.5971605092, blue: 1, alpha: 0.5)))
+                        
+                    }
+                
+                    }
             }
-           
+            
+            ZStack(alignment:.leading) {
+                   
+                TextField("", text: $email, onEditingChanged: { _ in
+                    print("hello")
+                }, onCommit: {
+                    print("hey girl")
+                    if email.isValidEmail {
+                        signupDisabled = false
+                    }
+                })
+                    .padding()
+                    .textFieldStyle(CustomTextFieldStyle())
+             
+               
+
+                    if email.isEmpty {
+                        HStack {
+                            Image("envelope")
+                                .resizable()
+                                .frame(width: 20, height: 20, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                                .padding(.leading, 30.0)
+                            Text("Email")
+                                .foregroundColor(Color(#colorLiteral(red: 0.2492679467, green: 0.5971605092, blue: 1, alpha: 0.5)))
+                        
+                    }
+                }
+               
+            }
+            
+            ZStack(alignment:.leading) {
+                   
+                TextField("", text: $password, onEditingChanged: { _ in
+                    print("password typing")
+                }, onCommit: {
+                    print("password complete")
+                })
+                    .padding()
+                    .textFieldStyle(CustomTextFieldStyle())
+             
+                   
+                
+              
+
+                    if password.isEmpty {
+                        HStack {
+                            Image("lock")
+                                .resizable()
+                                .frame(width: 20, height: 20, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                                .padding(.leading, 30.0)
+                        
+                            Text("Password")
+                                .foregroundColor(Color(#colorLiteral(red: 0.2492679467, green: 0.5971605092, blue: 1, alpha: 0.5)))
+                        
+                    }
+                }
+               
+            }
+            
+            ZStack(alignment:.leading) {
+                   
+                TextField("", text: $confirmPassword, onEditingChanged: { _ in
+                    print("typing confirm")
+                }, onCommit: {
+                    print("confirm complete")
+                })
+                    .padding()
+                    .textFieldStyle(CustomTextFieldStyle())
+             
+                   
+                
+               
+
+                    if confirmPassword.isEmpty {
+                        HStack {
+                            Image("lock")
+                                .resizable()
+                                .frame(width: 20, height: 20, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                                .padding(.leading, 30.0)
+                            Text("Confirm Password")
+                                .foregroundColor(Color(#colorLiteral(red: 0.2492679467, green: 0.5971605092, blue: 1, alpha: 0.5)))
+                        
+                    }
+                }
+               
+            }
+            
         }
+
     }
 }
 struct CustomTextFieldStyle: TextFieldStyle {
     func _body(configuration: TextField<Self._Label>) -> some View {
             configuration
                 .padding(15)
-                .background(Color(#colorLiteral(red: 0.08059277385, green: 0.1894979179, blue: 0.3140477538, alpha: 1)))
+                .background(Color(#colorLiteral(red: 0.08059277385, green: 0.1894979179, blue: 0.3140477538, alpha: 0.8984464269)))
                 .cornerRadius(30)
                 .shadow(color: .gray, radius: 5)
                 .overlay(RoundedRectangle(cornerRadius: 30).stroke(Color(#colorLiteral(red: 0.2135200689, green: 0.5115208546, blue: 0.8565885498, alpha: 1)), lineWidth: 1))

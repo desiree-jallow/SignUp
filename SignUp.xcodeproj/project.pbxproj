@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D71A6F0E26447B5D00084DFF /* EmailExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71A6F0D26447B5D00084DFF /* EmailExtention.swift */; };
 		D74E4AFC262F79F5001111DD /* SignUpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74E4AFB262F79F5001111DD /* SignUpApp.swift */; };
 		D74E4AFE262F79F5001111DD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74E4AFD262F79F5001111DD /* ContentView.swift */; };
 		D74E4B00262F79FA001111DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D74E4AFF262F79FA001111DD /* Assets.xcassets */; };
@@ -33,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D71A6F0D26447B5D00084DFF /* EmailExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailExtention.swift; sourceTree = "<group>"; };
 		D74E4AF8262F79F5001111DD /* SignUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SignUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D74E4AFB262F79F5001111DD /* SignUpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpApp.swift; sourceTree = "<group>"; };
 		D74E4AFD262F79F5001111DD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -72,6 +74,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D71A6F0C26447B3700084DFF /* Extention */ = {
+			isa = PBXGroup;
+			children = (
+				D71A6F0D26447B5D00084DFF /* EmailExtention.swift */,
+			);
+			path = Extention;
+			sourceTree = "<group>";
+		};
 		D74E4AEF262F79F5001111DD = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +105,7 @@
 		D74E4AFA262F79F5001111DD /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
+				D71A6F0C26447B3700084DFF /* Extention */,
 				D74E4AFB262F79F5001111DD /* SignUpApp.swift */,
 				D74E4AFD262F79F5001111DD /* ContentView.swift */,
 				D74E4AFF262F79FA001111DD /* Assets.xcassets */,
@@ -260,6 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D74E4AFE262F79F5001111DD /* ContentView.swift in Sources */,
+				D71A6F0E26447B5D00084DFF /* EmailExtention.swift in Sources */,
 				D74E4AFC262F79F5001111DD /* SignUpApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
