@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var parentButton = AvatarView(imageName: "parent", name: "parent", color: .yellow)
-    @State var childButton =  AvatarView(imageName: "child", name: "child", color: .orange)
-    @State var teacherButton = AvatarView(imageName: "teacher", name: "teacher", color: .blue)
-    @State var backgroundColor = Color(#colorLiteral(red: 0.101645493, green: 0.2374779485, blue: 0.3960759271, alpha: 0.8567087602))
+    @State var parentButton = AvatarView(imageName: "parent", name: "parent", color: Color(#colorLiteral(red: 0.3940707199, green: 0.5039851328, blue: 0.2046320622, alpha: 1)))
+    @State var childButton =  AvatarView(imageName: "child", name: "child", color: Color(#colorLiteral(red: 0.6707887158, green: 0.1774512484, blue: 0.237904652, alpha: 1)))
+    @State var teacherButton = AvatarView(imageName: "teacher", name: "teacher", color: Color(#colorLiteral(red: 0, green: 0.5, blue: 0.5, alpha: 1)))
+    @StateObject var backgroundSettings = BackgroundSettings()
+//    @State var backgroundColor = Color(#colorLiteral(red: 0.101645493, green: 0.2374779485, blue: 0.3960759271, alpha: 0.8567087602))
     @State var signupDisabled = true
     var body: some View {
         
         ZStack {
-            backgroundColor
+            backgroundSettings.backgroundColor
                 .ignoresSafeArea()
             
             VStack {
@@ -34,7 +35,7 @@ struct ContentView: View {
                         .opacity(parentButton.isSelected ? 1 : 0.1)
                         .onTapGesture {
                             parentButton.isSelected = true
-                            backgroundColor = parentButton.color.opacity(0.5)
+                            backgroundSettings.backgroundColor = parentButton.color.opacity(0.7)
                             childButton.isSelected = false
                             teacherButton.isSelected = false
                             
@@ -43,7 +44,7 @@ struct ContentView: View {
                         .opacity(childButton.isSelected ? 1 : 0.1)
                         .onTapGesture {
                             childButton.isSelected = true
-                            backgroundColor = childButton.color.opacity(0.5)
+                            backgroundSettings.backgroundColor = childButton.color.opacity(0.7)
                             parentButton.isSelected = false
                             teacherButton.isSelected = false
                         }
@@ -51,18 +52,9 @@ struct ContentView: View {
                         .opacity(teacherButton.isSelected ? 1 : 0.1)
                         .onTapGesture {
                             teacherButton.isSelected = true
-                            backgroundColor = teacherButton.color.opacity(0.5)
+                            backgroundSettings.backgroundColor = teacherButton.color.opacity(0.7)
                             parentButton.isSelected = false
                             childButton.isSelected = false
-//                    AvatarView(imageName: "parent", name: "parent", color: .green)
-//                        .opacity(isSelected ? 0.8 : 0.1)
-//                        .onTapGesture {
-//                            isSelected = true
-//
-//                        }
-                    
-//                    AvatarView(imageName: "child", name: "child", color: .orange)
-//                    AvatarView(imageName: "teacher", name: "teacher", color: .red)
                 }
             }
                 
@@ -96,6 +88,7 @@ struct ContentView: View {
             }
             
         }
+        .environmentObject(backgroundSettings)
     }
 }
 
@@ -126,7 +119,7 @@ struct TextFieldView: View {
                             .padding(.leading, 30.0)
                         
                         Text("Username")
-                        .foregroundColor(Color(#colorLiteral(red: 0.2492679467, green: 0.5971605092, blue: 1, alpha: 0.5)))
+                            .foregroundColor(Color(#colorLiteral(red: 0.3242850006, green: 0.36008057, blue: 0.4058655798, alpha: 1)))
                         
                     }
                 
@@ -155,7 +148,7 @@ struct TextFieldView: View {
                                 .frame(width: 20, height: 20, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                                 .padding(.leading, 30.0)
                             Text("Email")
-                                .foregroundColor(Color(#colorLiteral(red: 0.2492679467, green: 0.5971605092, blue: 1, alpha: 0.5)))
+                                .foregroundColor(Color(#colorLiteral(red: 0.3242850006, green: 0.36008057, blue: 0.4058655798, alpha: 1)))
                         
                     }
                 }
@@ -184,7 +177,7 @@ struct TextFieldView: View {
                                 .padding(.leading, 30.0)
                         
                             Text("Password")
-                                .foregroundColor(Color(#colorLiteral(red: 0.2492679467, green: 0.5971605092, blue: 1, alpha: 0.5)))
+                                .foregroundColor(Color(#colorLiteral(red: 0.3242850006, green: 0.36008057, blue: 0.4058655798, alpha: 1)))
                         
                     }
                 }
@@ -212,7 +205,7 @@ struct TextFieldView: View {
                                 .frame(width: 20, height: 20, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                                 .padding(.leading, 30.0)
                             Text("Confirm Password")
-                                .foregroundColor(Color(#colorLiteral(red: 0.2492679467, green: 0.5971605092, blue: 1, alpha: 0.5)))
+                                .foregroundColor(Color(#colorLiteral(red: 0.3242850006, green: 0.36008057, blue: 0.4058655798, alpha: 1)))
                         
                     }
                 }
@@ -224,13 +217,15 @@ struct TextFieldView: View {
     }
 }
 struct CustomTextFieldStyle: TextFieldStyle {
+    @EnvironmentObject var backgroundSettings: BackgroundSettings
     func _body(configuration: TextField<Self._Label>) -> some View {
             configuration
+                
                 .padding(15)
-                .background(Color(#colorLiteral(red: 0.08059277385, green: 0.1894979179, blue: 0.3140477538, alpha: 0.8984464269)))
+                .background(backgroundSettings.backgroundColor)
                 .cornerRadius(30)
                 .shadow(color: .gray, radius: 5)
-                .overlay(RoundedRectangle(cornerRadius: 30).stroke(Color(#colorLiteral(red: 0.2135200689, green: 0.5115208546, blue: 0.8565885498, alpha: 1)), lineWidth: 1))
+                .overlay(RoundedRectangle(cornerRadius: 30).stroke(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)), lineWidth: 1))
         }
     
     
@@ -259,7 +254,7 @@ struct AvatarView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().environmentObject(BackgroundSettings())
     }
 }
 
