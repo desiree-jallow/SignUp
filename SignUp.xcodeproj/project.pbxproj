@@ -15,6 +15,11 @@
 		D74E4B03262F79FA001111DD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D74E4B02262F79FA001111DD /* Preview Assets.xcassets */; };
 		D74E4B0E262F79FB001111DD /* SignUpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74E4B0D262F79FB001111DD /* SignUpTests.swift */; };
 		D74E4B19262F79FB001111DD /* SignUpUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74E4B18262F79FB001111DD /* SignUpUITests.swift */; };
+		D7FA87A2264B1A2E00B47566 /* AvatarStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FA87A1264B1A2E00B47566 /* AvatarStackView.swift */; };
+		D7FA87A4264B1A9100B47566 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FA87A3264B1A9100B47566 /* TextFieldView.swift */; };
+		D7FA87A6264B1B6300B47566 /* TextFieldImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FA87A5264B1B6300B47566 /* TextFieldImageView.swift */; };
+		D7FA87A8264B1BA400B47566 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FA87A7264B1BA400B47566 /* AvatarView.swift */; };
+		D7FA87AA264B1BEC00B47566 /* TextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FA87A9264B1BEC00B47566 /* TextFieldModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +54,11 @@
 		D74E4B14262F79FB001111DD /* SignUpUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SignUpUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D74E4B18262F79FB001111DD /* SignUpUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUITests.swift; sourceTree = "<group>"; };
 		D74E4B1A262F79FB001111DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D7FA87A1264B1A2E00B47566 /* AvatarStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarStackView.swift; sourceTree = "<group>"; };
+		D7FA87A3264B1A9100B47566 /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
+		D7FA87A5264B1B6300B47566 /* TextFieldImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldImageView.swift; sourceTree = "<group>"; };
+		D7FA87A7264B1BA400B47566 /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
+		D7FA87A9264B1BEC00B47566 /* TextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldModifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,10 +125,10 @@
 		D74E4AFA262F79F5001111DD /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
+				D7FA87A0264B19FC00B47566 /* Views */,
 				D71A6F0F2649AFAC00084DFF /* Model */,
 				D71A6F0C26447B3700084DFF /* Extention */,
 				D74E4AFB262F79F5001111DD /* SignUpApp.swift */,
-				D74E4AFD262F79F5001111DD /* ContentView.swift */,
 				D74E4AFF262F79FA001111DD /* Assets.xcassets */,
 				D74E4B04262F79FA001111DD /* Info.plist */,
 				D74E4B01262F79FA001111DD /* Preview Content */,
@@ -150,6 +160,19 @@
 				D74E4B1A262F79FB001111DD /* Info.plist */,
 			);
 			path = SignUpUITests;
+			sourceTree = "<group>";
+		};
+		D7FA87A0264B19FC00B47566 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D74E4AFD262F79F5001111DD /* ContentView.swift */,
+				D7FA87A1264B1A2E00B47566 /* AvatarStackView.swift */,
+				D7FA87A3264B1A9100B47566 /* TextFieldView.swift */,
+				D7FA87A5264B1B6300B47566 /* TextFieldImageView.swift */,
+				D7FA87A7264B1BA400B47566 /* AvatarView.swift */,
+				D7FA87A9264B1BEC00B47566 /* TextFieldModifier.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -282,7 +305,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D71A6F112649AFDA00084DFF /* BackgroundSettings.swift in Sources */,
+				D7FA87A6264B1B6300B47566 /* TextFieldImageView.swift in Sources */,
+				D7FA87A2264B1A2E00B47566 /* AvatarStackView.swift in Sources */,
+				D7FA87A4264B1A9100B47566 /* TextFieldView.swift in Sources */,
 				D74E4AFE262F79F5001111DD /* ContentView.swift in Sources */,
+				D7FA87A8264B1BA400B47566 /* AvatarView.swift in Sources */,
+				D7FA87AA264B1BEC00B47566 /* TextFieldModifier.swift in Sources */,
 				D71A6F0E26447B5D00084DFF /* EmailExtention.swift in Sources */,
 				D74E4AFC262F79F5001111DD /* SignUpApp.swift in Sources */,
 			);
