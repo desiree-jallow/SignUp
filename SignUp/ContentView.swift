@@ -66,7 +66,7 @@ struct ContentView: View {
          
                 
                 Button(action: {
-                    print("Hello")
+                    print("Sign up Confirmed")
                 }, label: {
                     Text("Sign Up")
                         .bold()
@@ -102,9 +102,14 @@ struct TextFieldView: View {
     @State var email: String = ""
     @State var password: String = ""
     @State var confirmPassword: String = ""
-    @State var showRedBorder = false
-    @Binding var signupDisabled: Bool
+    
+    @State var showEmailRedBorder = false
+    @State var showConfirmPasswordRedBorder = false
+    @State var showPasswordRedBorder = false
     @State var passwordConfirmed = false
+    
+    @Binding var signupDisabled: Bool
+   
     @EnvironmentObject var backgroundSettings: BackgroundSettings
    
    
@@ -117,12 +122,7 @@ struct TextFieldView: View {
                 HStack {
                     TextFieldImageView(imageName: "user")
                     
-                    TextField("Username", text: $username, onEditingChanged: { _ in
-                        print("hello")
-                    }, onCommit: {
-                        print("hey girl")
-                        
-                    })
+                    TextField("Username", text: $username)
                         .padding()
  
                 }
@@ -135,18 +135,22 @@ struct TextFieldView: View {
                 HStack {
                     TextFieldImageView(imageName: "envelope")
                     
-                    TextField("Email", text: $email, onEditingChanged: { _ in
-                        print("hello")
-                    }, onCommit: {
-                        print("hey girl")
-                        if email.isValidEmail {
+                    TextField("Email", text: $email, onCommit: {
+                        showEmailRedBorder = email.isValidEmail ? false : true
+                        
+                        if password == confirmPassword && email.isValidEmail && password.count == 6 {
+                            print("confirmed")
                             signupDisabled = false
+                        } else {
+                            print("not confirmed")
+                            signupDisabled = true
                         }
+                        
                     })
                         .padding()
  
                 }
-
+                .overlay(showEmailRedBorder ? RoundedRectangle(cornerRadius: 30).stroke(Color(.red), lineWidth: 1) : RoundedRectangle(cornerRadius: 30).stroke(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)), lineWidth: 1))
                 .modifier(TextFieldModifier())
             }
             
@@ -154,20 +158,25 @@ struct TextFieldView: View {
                 HStack {
                     TextFieldImageView(imageName: "lock")
                     
-                    TextField("Password", text: $password, onEditingChanged: { _ in
-                        print("password typing")
-                    }, onCommit: {
-                        if password.count == 6 {
-                            passwordConfirmed = true
+                    TextField("Password", text: $password, onCommit: {
+                        showPasswordRedBorder = password.count == 6 ? false : true
+                        
+                        passwordConfirmed = password.count == 6 ? true : false
+                       
+                        if password == confirmPassword && email.isValidEmail && password.count == 6 {
+                            print("confirmed")
+                            signupDisabled = false
                         } else {
-                            passwordConfirmed = false
+                            print("not confirmed")
+                            signupDisabled = true
                         }
-                        print("password complete")
+                        
                     })
                         
                         .padding()
   
                 }
+                .overlay(showPasswordRedBorder ? RoundedRectangle(cornerRadius: 30).stroke(Color(.red), lineWidth: 1) : RoundedRectangle(cornerRadius: 30).stroke(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)), lineWidth: 1))
                 .modifier(TextFieldModifier())
             }
       
@@ -176,22 +185,29 @@ struct TextFieldView: View {
                     TextFieldImageView(imageName: "lock")
                     
                     TextField("Confirm Password", text: $confirmPassword, onCommit: {
+                        if password == confirmPassword && email.isValidEmail && password.count == 6 {
+                            print("confirmed")
+                            signupDisabled = false
+                        } else {
+                            print("not confirmed")
+                            signupDisabled = true
+                        }
+                     
+                         
+                        showConfirmPasswordRedBorder = confirmPassword != password ? true : false
                         
-                            print("confirm complete")
-                        
-                      
                     })
                     
                     .onChange(of: confirmPassword, perform: { value in
                         let range = confirmPassword.startIndex..<confirmPassword.endIndex
                         if confirmPassword.count <= password.count {
                             if value != password[range] {
-                                showRedBorder = true
+                                showConfirmPasswordRedBorder = true
                             } else {
-                                showRedBorder = false
+                                showConfirmPasswordRedBorder = false
                             }
                         } else {
-                            showRedBorder = true
+                            showConfirmPasswordRedBorder = true
                         }
                         
                     })
@@ -200,11 +216,11 @@ struct TextFieldView: View {
                        
     
                 }
-                .background(backgroundSettings.backgroundColor)
-                .cornerRadius(30)
-                .shadow(color: .gray, radius: 5)
-                .overlay(showRedBorder ? RoundedRectangle(cornerRadius: 30).stroke(Color(.red), lineWidth: 1) : RoundedRectangle(cornerRadius: 30).stroke(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)), lineWidth: 1))
-//                .modifier(TextFieldModifier())
+//                .background(backgroundSettings.backgroundColor)
+//                .cornerRadius(30)
+//                .shadow(color: .gray, radius: 5)
+                .overlay(showConfirmPasswordRedBorder ? RoundedRectangle(cornerRadius: 30).stroke(Color(.red), lineWidth: 1) : RoundedRectangle(cornerRadius: 30).stroke(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)), lineWidth: 1))
+                .modifier(TextFieldModifier())
             }
            
         }
@@ -222,7 +238,7 @@ struct TextFieldModifier: ViewModifier {
             .background(backgroundSettings.backgroundColor)
             .cornerRadius(30)
             .shadow(color: .gray, radius: 5)
-            .overlay(RoundedRectangle(cornerRadius: 30).stroke(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)), lineWidth: 1))
+//            .overlay(RoundedRectangle(cornerRadius: 30).stroke(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)), lineWidth: 1))
     }
     
     
